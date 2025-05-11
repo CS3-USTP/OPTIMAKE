@@ -25,7 +25,7 @@ export function WorkspaceSwitcher({
   workspaces: {
     name: string
     logo: React.ElementType
-    plan: string
+    // plan: string
   }[]
 }) {
   const { isMobile } = useSidebar()
@@ -42,16 +42,16 @@ export function WorkspaceSwitcher({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground cursor-pointer"
             >
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+              {/* <div className="flex aspect-square size-6 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                 <activeWorkspace.logo className="size-4" />
-              </div>
+              </div> */}
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
                   {activeWorkspace.name}
                 </span>
-                <span className="truncate text-xs">{activeWorkspace.plan}</span>
+                {/* <span className="truncate text-xs">February 2025</span> */}
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -69,7 +69,7 @@ export function WorkspaceSwitcher({
               <DropdownMenuItem
                 key={workspace.name}
                 onClick={() => setActiveWorkspace(workspace)}
-                className="gap-2 p-2"
+                className="gap-2 p-2 cursor-pointer"
               >
                 <div className="flex size-6 items-center justify-center rounded-sm border">
                   <workspace.logo className="size-4 shrink-0" />
@@ -79,7 +79,7 @@ export function WorkspaceSwitcher({
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
+            <DropdownMenuItem className="gap-2 p-2 cursor-pointer">
               <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                 <Plus className="size-4" />
               </div>

@@ -3,11 +3,14 @@
 import * as React from "react"
 import {
   IconAutomation,
+  IconBell,
+  IconBook2,
   IconBuilding,
   IconCamera,
   IconChartBar,
   IconDashboard,
   IconDatabase,
+  IconDoor,
   IconFileAi,
   IconFileDescription,
   IconFileWord,
@@ -25,7 +28,6 @@ import {
 } from "@tabler/icons-react"
 
 import { NavGroup } from "@/components/nav-group"
-import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
 import {
@@ -43,55 +45,41 @@ const data = {
 
   workspace: [
     {
-      name: "Acme Inc",
+      name: "USTP 2024",
       logo: IconLayoutDashboard,
       plan: "Enterprise",
     },
     {
-      name: "Acme Corp.",
+      name: "USTP 2025",
       logo: IconLayoutDashboard,
       plan: "Startup",
     },
-    {
-      name: "Evil Corp.",
-      logo: IconLayoutDashboard,
-      plan: "Free",
-    },
   ],
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Joeninyo Cainday",
+    email: "caindayjoeninyo@gmail.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  navMain: [
+  application: [
     {
-      title: "Dashboard",
+      name: "Dashboard",
       url: "#",
       icon: IconLayoutDashboard,
+    },
+    {
+      name: "Documentation",
+      url: "#",
+      icon: IconHelp,
     },
   ],
 
   navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Contact Support",
-      url: "#",
-      icon: IconPhone,
-    },
+
   ],
   composition: [
     {
       name: "Buildings",
-      url: "#",
+      url: "/buildings",
       icon: IconBuilding,
     },
     {
@@ -109,6 +97,8 @@ const data = {
   ]
 }
 
+
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -118,7 +108,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
 
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavGroup title="Application" items={data.application} />
         <NavGroup title="University Composition" items={data.composition} />
         <NavGroup title="Schedule Actions" items={data.actions} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
