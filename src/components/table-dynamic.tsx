@@ -40,7 +40,7 @@ export default function TableDynamic({ headers, data }: TableDynamicProps) {
           <TableRow>
             <TableHead className="w-12 text-center"></TableHead>
             {headers.map((header) => (
-              <TableHead key={header.key} className="font-medium">
+              <TableHead key={header.key}>
                 {header.label}
               </TableHead>
             ))}

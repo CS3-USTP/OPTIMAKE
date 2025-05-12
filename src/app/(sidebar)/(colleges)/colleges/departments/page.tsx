@@ -58,7 +58,6 @@ export default function page() {
 
 	const headers = [
 		{ key: "name", label: "Name" },
-		{ key: "description", label: "Description" },
 	];
 
 	return (
@@ -70,7 +69,6 @@ export default function page() {
 				<TableCreateComposition
 					title='Department'
 					namePlaceholder="e.g., Department of Computer Science"
-					descPlaceholder="e.g., Focuses on complex research and algorithms."
 					onCreate={() => { }} />
 			</TableActions>
 

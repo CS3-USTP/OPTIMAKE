@@ -58,11 +58,6 @@ export default function page() {
 
 	const headers = [
 		{ key: "name", label: "Name" },
-		{ key: "description", label: "Description" },
-		// { key: "departments", label: "Departments" },
-		// { key: "courses", label: "Courses" },
-		// { key: "sections", label: "Sections" },
-		// { key: "faculties", label: "Faculties" },
 	];
 
 	return (
@@ -74,8 +69,7 @@ export default function page() {
 				<TableCreateComposition
 					title='College'
 					namePlaceholder="e.g., College of Engineering and Architecture"
-					descPlaceholder="e.g., Offers engineering programs and technical training."
-					onCreate={(name, desc) => { }} />
+					onCreate={(name) => { }} />
 			</TableActions>
 			<TableDynamic headers={headers} data={data} />
 		</div>

@@ -73,7 +73,6 @@ export default function page() {
     ]
     const headers = [
         { key: "name", label: "Name" },
-        { key: "description", label: "Description" },
     ];
 
     return (
@@ -85,8 +84,7 @@ export default function page() {
                 <TableCreateComposition
                     title="Facility"
                     namePlaceholder="e.g., Computer Lab"
-                    descPlaceholder="e.g., A room equipped with computers for educational purposes."
-                    onCreate={(name, desc) => { }} />
+                    onCreate={(name) => { }} />
             </TableActions>
             <TableDynamic data={data} headers={headers} />
         </div>

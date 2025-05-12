@@ -16,28 +16,23 @@ import { Input } from "@/components/ui/input";
 export default function TableCreateComposition({
     title,
     nameInitialValue = "",
-    descInitialValue = "",
     namePlaceholder = "",
-    descPlaceholder = "",
     onCreate
 }: {
     title: string;
     nameInitialValue?: string;
-    descInitialValue?: string;
     namePlaceholder?: string;
     descPlaceholder?: string;
-    onCreate: (name: string, desc: string) => void;
+    onCreate: (name: string) => void;
 }) {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState(nameInitialValue);
-    const [desc, setDesc] = useState(descInitialValue);
 
     // Reset fields when dialog opens
     const handleOpenChange = (isOpen: boolean) => {
         setOpen(isOpen);
         if (isOpen) {
             setName(nameInitialValue);
-            setDesc(descInitialValue);
         }
     };
 
@@ -53,31 +48,29 @@ export default function TableCreateComposition({
                 <DialogHeader>
                     <DialogTitle>Add a New {title}</DialogTitle>
                     <DialogDescription>
-                        Provide the {title.toLowerCase()}'s name and a brief description.
+                        Enter the details for the new {title.toLowerCase()} below.
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="grid gap-4">
-                    <div className="grid gap-2">
-                        <Label htmlFor="name">Name</Label>
+                <div className="grid gap-2">
+                    <Label htmlFor="name">Name</Label>
+                    <div className="relative">
                         <Input
                             id="name"
                             maxLength={50}
                             placeholder={namePlaceholder}
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            className="pr-14"
                         />
-                    </div>
-
-                    <div className="grid gap-2">
-                        <Label htmlFor="description">Description</Label>
-                        <Input
-                            id="description"
-                            maxLength={50}
-                            placeholder={descPlaceholder}
-                            value={desc}
-                            onChange={(e) => setDesc(e.target.value)}
-                        />
+                        <span
+                            className={
+                                `absolute bottom-2.5 right-3 text-xs ${name.length >= 45
+                                    ? "text-destructive"
+                                    : "text-muted-foreground"
+                                }`}>
+                            {name.length}/50
+                        </span>
                     </div>
                 </div>
 
@@ -86,7 +79,7 @@ export default function TableCreateComposition({
                         type="submit"
                         className="cursor-pointer"
                         onClick={() => {
-                            onCreate(name, desc);
+                            onCreate(name);
                             setOpen(false);
                         }}
                     >
