@@ -1,21 +1,8 @@
 "use client";
-import { useState } from "react";
-import { TableDynamic } from "@/components/table-dynamic";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { BuildingIcon, PlusIcon, SearchIcon, HomeIcon, SettingsIcon, WrenchIcon } from "lucide-react";
-import { IconBuildingPlus, IconPick, IconTablePlus } from "@tabler/icons-react";
+import TableDynamic from "@/components/table-dynamic";
 import TableActions from "@/components/table-actions";
+import TableCreateComposition from "@/components/table-create-action";
+import TableSearchComposition from "@/components/table-search-action";
 
 export default function page() {
 
@@ -87,16 +74,19 @@ export default function page() {
     const headers = [
         { key: "name", label: "Name" },
         { key: "description", label: "Description" },
-        // { key: "buildings", label: "Buildings" },
-        // { key: "rooms", label: "Rooms" },
-        // { key: "courses", label: "Courses" },
-        // { key: "sections", label: "Sections" },
     ];
 
     return (
         <div>
-            <TableActions subtitle="Create and select a facility to manage its rooms." placeholder="Search facilities..." onSearch={() => { }}>
-                <h1>hi</h1>
+            <TableActions subtitle="Define facility types for room assignment.">
+                <TableSearchComposition
+                    placeholder="Search for a facility..."
+                    onSearch={() => { }} />
+                <TableCreateComposition
+                    title="Facility"
+                    namePlaceholder="e.g., Computer Lab"
+                    descPlaceholder="e.g., A room equipped with computers for educational purposes."
+                    onCreate={(name, desc) => { }} />
             </TableActions>
             <TableDynamic data={data} headers={headers} />
         </div>

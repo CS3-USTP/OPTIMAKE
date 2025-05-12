@@ -1,24 +1,8 @@
 "use client";
-import { useState } from "react";
-import { TableDynamic } from "@/components/table-dynamic";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
-import { BuildingIcon, PlusIcon, SearchIcon, HomeIcon, SettingsIcon, WrenchIcon, Table } from "lucide-react";
-import { IconBuildingPlus, IconPick, IconTablePlus } from "@tabler/icons-react";
-
+import TableDynamic from "@/components/table-dynamic";
 import TableActions from "@/components/table-actions";
-
-
+import TableSearchComposition from "@/components/table-search-action";
+import TableCreateComposition from "@/components/table-create-action";
 
 export default function page() {
 	const data = [
@@ -83,54 +67,18 @@ export default function page() {
 
 	return (
 		<div>
-			<TableActions subtitle="Create and select a college to manage its departments." placeholder="Search colleges..." onSearch={() => { }}>
-				<AddCollegeDialog />
+			<TableActions subtitle="Select a college to manage its departments.">
+				<TableSearchComposition
+					placeholder="Search colleges..."
+					onSearch={() => { }} />
+				<TableCreateComposition
+					title='College'
+					namePlaceholder="e.g., College of Engineering and Architecture"
+					descPlaceholder="e.g., Offers engineering programs and technical training."
+					onCreate={(name, desc) => { }} />
 			</TableActions>
 			<TableDynamic headers={headers} data={data} />
 		</div>
-	);
-}
-
-
-function AddCollegeDialog() {
-	const [open, setOpen] = useState(false);
-
-	return (
-		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger asChild>
-				<Button variant="outline" className="cursor-pointer">
-					<IconTablePlus size={16} />
-					New College
-				</Button>
-			</DialogTrigger>
-			<DialogContent className="p-10">
-				<DialogHeader>
-					<DialogTitle>Add a New College</DialogTitle>
-					<DialogDescription>
-						Provide the college's name and a brief description.
-					</DialogDescription>
-				</DialogHeader>
-
-				<div className="grid gap-4 py-4">
-					<div className="grid gap-2">
-						<Label htmlFor="college-name">College Name</Label>
-						<Input id="college-name" placeholder="e.g., College of Fine Arts" />
-					</div>
-
-					<div className="grid gap-2">
-						<Label htmlFor="college-description">Description</Label>
-						<Input
-							id="college-description"
-							placeholder="e.g., Focuses on visual and performing arts"
-						/>
-					</div>
-				</div>
-
-				<DialogFooter>
-					<Button type="submit" className="cursor-pointer w-full">Create College</Button>
-				</DialogFooter>
-			</DialogContent>
-		</Dialog>
 	);
 }
 

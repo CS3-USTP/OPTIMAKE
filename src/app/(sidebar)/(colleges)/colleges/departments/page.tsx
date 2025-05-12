@@ -1,24 +1,8 @@
 "use client";
-import { useState } from "react";
-import { TableDynamic } from "@/components/table-dynamic";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
-import { BuildingIcon, PlusIcon, SearchIcon, HomeIcon, SettingsIcon, WrenchIcon } from "lucide-react";
-import { IconBuildingPlus, IconPick, IconTablePlus } from "@tabler/icons-react";
+import TableDynamic from "@/components/table-dynamic";
 import TableActions from "@/components/table-actions";
-
-
-
+import TableSearchComposition from "@/components/table-search-action";
+import TableCreateComposition from "@/components/table-create-action";
 
 export default function page() {
 	const data = [
@@ -79,11 +63,20 @@ export default function page() {
 
 	return (
 		<div>
-			<TableActions subtitle="Select a department to manage its courses, sections, and faculties." placeholder="Search department..." onSearch={(value) => console.log(value)}>
-				<h1>helo</h1>
+			<TableActions subtitle="Select a department to manage its courses, sections, and faculties.">
+				<TableSearchComposition
+					placeholder="Search department..."
+					onSearch={() => { }} />
+				<TableCreateComposition
+					title='Department'
+					namePlaceholder="e.g., Department of Computer Science"
+					descPlaceholder="e.g., Focuses on complex research and algorithms."
+					onCreate={() => { }} />
 			</TableActions>
 
 			<TableDynamic data={data} headers={headers} />
 		</div>
 	);
 }
+
+

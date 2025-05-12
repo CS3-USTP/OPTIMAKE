@@ -32,7 +32,7 @@ interface TableDynamicProps {
   data: TableData[];
 }
 
-export function TableDynamic({ headers, data }: TableDynamicProps) {
+export default function TableDynamic({ headers, data }: TableDynamicProps) {
   return (
     <div className="overflow-hidden rounded-lg border">
       <Table>
