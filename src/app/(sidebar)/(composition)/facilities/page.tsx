@@ -1,10 +1,9 @@
 
 import UniversityComposition from "@/components/university-composition";
 
-
 const data = [
     {
-        id: "1",
+        id: "qwertyuiopasdfghjklz",
         name: "Computer Lab",
         description: "A room equipped with computers for educational or work purposes.",
         courses: 10,
@@ -13,7 +12,7 @@ const data = [
         rooms: 15, // Count of rooms with this facility
     },
     {
-        id: "2",
+        id: "zxcvbnmasdfghjklqwert",
         name: "Audio-Visual Room",
         description: "A facility designed for multimedia presentations and screenings.",
         courses: 5,
@@ -22,7 +21,7 @@ const data = [
         rooms: 8, // Count of rooms with this facility
     },
     {
-        id: "3",
+        id: "poiuytrewqlkjhgfdsam",
         name: "Mechanic Workshop",
         description: "A workshop equipped for mechanical repairs and training.",
         courses: 8,
@@ -31,7 +30,7 @@ const data = [
         rooms: 12, // Count of rooms with this facility
     },
     {
-        id: "4",
+        id: "mnbvcxzlkjhgfdsapoiu",
         name: "Library",
         description: "A quiet space with a collection of books and resources for study.",
         courses: 12,
@@ -40,7 +39,7 @@ const data = [
         rooms: 20, // Count of rooms with this facility
     },
     {
-        id: "5",
+        id: "asdfghjklqwertyuiopz",
         name: "Science Lab",
         description: "A laboratory for conducting scientific experiments and research.",
         courses: 7,
@@ -49,7 +48,7 @@ const data = [
         rooms: 10, // Count of rooms with this facility
     },
     {
-        id: "6",
+        id: "lkjhgfdsaqwertyuiopz",
         name: "Conference Room",
         description: "A room for meetings and discussions equipped with presentation tools.",
         courses: 3,
@@ -58,7 +57,7 @@ const data = [
         rooms: 5, // Count of rooms with this facility
     },
     {
-        id: "7",
+        id: "zxcvbnmlkjhgfdsaqwert",
         name: "Gymnasium",
         description: "A facility for physical exercise and sports activities.",
         courses: 6,
@@ -66,7 +65,7 @@ const data = [
         buildings: 4, // Count of buildings with this facility
         rooms: 18, // Count of rooms with this facility
     },
-]
+];
 
 const header = [
     { key: "name", label: "Name" },
@@ -81,7 +80,7 @@ export default function Page() {
             caption="Define facility types for room assignment."
             header={header}
             data={data}
-            placeholder="e.g., Computer Lab"
+            placeholder="e.g., Computer Laboratory"
         />
     );
 }

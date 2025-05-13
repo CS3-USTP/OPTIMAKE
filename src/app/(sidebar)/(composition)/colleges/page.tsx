@@ -10,7 +10,7 @@ export default function Page() {
 			caption="Select a college to manage its departments."
 			header={[]}
 			data={[]}
-			placeholder="e.g., College of Information Technology and Computing"
+			placeholder="e.g., College of Science and Mathematics"
 		/>
 	);
 }
