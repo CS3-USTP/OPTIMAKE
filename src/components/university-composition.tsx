@@ -35,17 +35,20 @@ import { Input } from "@/components/ui/input";
 import { MoreVerticalIcon, SearchIcon } from "lucide-react";
 import { IconEditCircle, IconTablePlus } from "@tabler/icons-react";
 
+import { usePathname } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import { atom, useAtom, useAtomValue, useSetAtom, Provider } from 'jotai';
 import { useHydrateAtoms } from 'jotai/utils';
 
 /* ------------------------------ table action ------------------------------ */
-const titleAtom = atom<string>('');
-const captionAtom = atom<string>('');
-const searchAtom = atom<string>('');
+const titleAtom = atom('');
+const captionAtom = atom('');
+const searchAtom = atom('');
 
 /* ------------------------------ dynamic table ----------------------------- */
 type TableDataType = {
     id: string; // required
+    name: string; // required
     [key: string]: string | number | null | undefined; // any
 }
 type TableHeaderType = {
@@ -57,9 +60,11 @@ const headerAtom = atom<TableHeaderType[]>([]);
 const dataAtom = atom<TableDataType[]>([]);
 
 /* ------------------ create composition button with dialog ----------------- */
-const inputAtom = atom<string>('');
-const dialogAtom = atom<boolean>(false);
-const placeholderAtom = atom<string>('');
+const inputAtom = atom('');
+const selectAtom = atom<TableDataType | null>(null);
+const inputDialogAtom = atom(false);
+const deleteDialogAtom = atom(false);
+const placeholderAtom = atom('');
 
 /* ------------------------- dynamic initial states ------------------------- */
 type InitialStateType = {
@@ -133,7 +138,7 @@ function TableAction() {
                             className="pl-8" />
                     </div>
                 </div>
-                <CreateButton />
+                <ActionDialog />
             </div>
         </div>
     );
@@ -141,8 +146,29 @@ function TableAction() {
 
 function DynamicTable() {
 
+    const setInputDialog = useSetAtom(inputDialogAtom);
+    const setSelect = useSetAtom(selectAtom);
+    const setDeleteDialog = useSetAtom(deleteDialogAtom); // Add this at the top
     const header = useAtomValue(headerAtom);
     const data = useAtomValue(dataAtom);
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const handleSelect = (e: React.MouseEvent<HTMLDivElement>, item: TableDataType) => {
+        router.push(`${pathname}/${item.id}`);
+    }
+
+    const handleEdit = (e: React.MouseEvent<HTMLDivElement>, item: TableDataType) => {
+        e.stopPropagation();  // prevents handleSelect trigger
+        setSelect(item);      // Set item to be edited (if null, create)
+        setInputDialog(true); // Open input dialog
+    }
+
+    const handleDelete = (e: React.MouseEvent<HTMLDivElement>, item: TableDataType) => {
+        e.stopPropagation();   // prevent row click
+        setSelect(item);       // Set item to be deleted
+        setDeleteDialog(true); // Open confirmation dialog
+    };
 
     return (
         <div className="overflow-hidden rounded-lg border">
@@ -162,7 +188,7 @@ function DynamicTable() {
                 <TableBody>
                     {data.length > 0 ? (
                         data.map((item, rowIndex) => (
-                            <TableRow key={rowIndex} className="hover:bg-muted cursor-pointer">
+                            <TableRow key={rowIndex} className="hover:bg-muted cursor-pointer" onClick={(e) => handleSelect(e, item)}>
                                 <TableCell className="text-center">
                                     <IconEditCircle size={17} color="lightgrey" className="mx-auto" />
                                 </TableCell>
@@ -190,9 +216,9 @@ function DynamicTable() {
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end" className="w-32">
-                                            <DropdownMenuItem className="cursor-pointer">Edit</DropdownMenuItem>
+                                            <DropdownMenuItem className="cursor-pointer" onClick={(e) => handleEdit(e, item)}>Edit</DropdownMenuItem>
                                             <DropdownMenuSeparator />
-                                            <DropdownMenuItem className="text-red-500 cursor-pointer">
+                                            <DropdownMenuItem className="text-red-500 cursor-pointer" onClick={(e) => handleDelete(e, item)}>
                                                 Delete
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
@@ -213,74 +239,129 @@ function DynamicTable() {
     );
 }
 
-function CreateButton() {
 
+
+export function ActionDialog() {
     const title = useAtomValue(titleAtom);
     const placeholder = useAtomValue(placeholderAtom);
-    const dialog = useAtomValue(dialogAtom);
+    const dialog = useAtomValue(inputDialogAtom);
+    const deleteDialog = useAtomValue(deleteDialogAtom);
     const input = useAtomValue(inputAtom);
-    const setDialog = useSetAtom(dialogAtom);
-    const setInput = useSetAtom(inputAtom);
+    const select = useAtomValue(selectAtom);
 
-    // Reset fields when dialog opens
+    const setInputDialog = useSetAtom(inputDialogAtom);
+    const setDeleteDialog = useSetAtom(deleteDialogAtom);
+    const setInput = useSetAtom(inputAtom);
+    const setSelect = useSetAtom(selectAtom);
+
+    const isEditMode = Boolean(select);
+    const nameValue = isEditMode ? select!.name : input;
+    const nameLength = nameValue.length;
+
+    const cleanup = () => {
+        setInput('');
+        setSelect(null);
+        setInputDialog(false);
+        setDeleteDialog(false);
+    };
+
     const handleOpenChange = (isOpen: boolean) => {
-        setDialog(isOpen);
-        if (isOpen) {
-            setInput("");
-        }
-    }
+        setInputDialog(isOpen);
+        if (isOpen) cleanup();
+    };
+
+    const handleDeleteConfirm = () => {
+        // Your deletion logic goes here (e.g., update dataAtom if needed)
+        cleanup();
+        setDeleteDialog(false);
+        setInputDialog(false);
+    };
 
     return (
-        <Dialog open={dialog} onOpenChange={handleOpenChange}>
-            <DialogTrigger asChild>
-                <Button variant="outline" className="cursor-pointer">
-                    <IconTablePlus size={16} />
-                    New {title}
-                </Button>
-            </DialogTrigger>
-            <DialogContent className="p-7">
-                <DialogHeader>
-                    <DialogTitle>Add a New {title}</DialogTitle>
-                    <DialogDescription>
-                        Enter the details for the new {title.toLowerCase()} below.
-                    </DialogDescription>
-                </DialogHeader>
-
-                <div className="grid gap-2">
-                    <Label htmlFor="name">Name</Label>
-                    <div className="relative">
-                        <Input
-                            id="name"
-                            maxLength={50}
-                            placeholder={placeholder}
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            className="pr-14"
-                        />
-                        <span
-                            className={
-                                `absolute bottom-2.5 right-3 text-xs ${input.length >= 45
-                                    ? "text-destructive"
-                                    : "text-muted-foreground"
-                                }`}>
-                            {input.length}/50
-                        </span>
-                    </div>
-                </div>
-
-                <DialogFooter>
-                    <Button
-                        type="submit"
-                        className="cursor-pointer"
-                        onClick={() => {
-                            setDialog(false);
-                        }}
-                    >
-                        Create {title}
+        <>
+            <Dialog open={dialog} onOpenChange={handleOpenChange}>
+                <DialogTrigger asChild>
+                    <Button variant="outline" className="cursor-pointer">
+                        <IconTablePlus size={16} />
+                        New {title}
                     </Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
+                </DialogTrigger>
+                <DialogContent className="p-7">
+                    <DialogHeader>
+                        {isEditMode ? (
+                            <>
+                                <DialogTitle>Edit {title}</DialogTitle>
+                                <DialogDescription>
+                                    Update the details of ID:
+                                    <span className="font-bold italic">
+                                        {select!.id.toLowerCase()}
+                                    </span>
+                                </DialogDescription>
+                            </>
+                        ) : (
+                            <>
+                                <DialogTitle>Add a New {title}</DialogTitle>
+                                <DialogDescription>
+                                    Enter the details for the new {title.toLowerCase()} below.
+                                </DialogDescription>
+                            </>
+                        )}
+                    </DialogHeader>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="name">Name</Label>
+                        <div className="relative">
+                            <Input
+                                id="name"
+                                maxLength={50}
+                                placeholder={placeholder}
+                                value={nameValue}
+                                onChange={(e) => setInput(e.target.value)}
+                                className="pr-14"
+                            />
+                            <span
+                                className={`absolute bottom-2.5 right-3 text-xs ${nameLength >= 45
+                                    ? 'text-destructive'
+                                    : 'text-muted-foreground'
+                                    }`}
+                            >
+                                {nameLength}/50
+                            </span>
+                        </div>
+                    </div>
+
+                    <DialogFooter>
+                        <Button
+                            type="submit"
+                            className="cursor-pointer"
+                            onClick={() => setInputDialog(false)}
+                        >
+                            {isEditMode ? `Edit ${title}` : `Create ${title}`}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Delete Confirmation Dialog */}
+            <Dialog open={deleteDialog} onOpenChange={setDeleteDialog}>
+                <DialogContent className="p-6 max-w-sm">
+                    <DialogHeader>
+                        <DialogTitle>Are you sure?</DialogTitle>
+                        <DialogDescription>
+                            This action cannot be undone. This will permanently delete this{' '}
+                            {title.toLowerCase()}.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setDeleteDialog(false)}>
+                            Cancel
+                        </Button>
+                        <Button variant="destructive" onClick={handleDeleteConfirm}>
+                            Confirm Delete
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+        </>
     );
 }
-
