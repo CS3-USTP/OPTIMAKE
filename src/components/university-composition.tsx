@@ -360,7 +360,7 @@ export function ActionDialog() {
                         <Button variant="outline" onClick={() => setDeleteDialog(false)} className="cursor-pointer">
                             Cancel
                         </Button>
-                        <Button variant="destructive" onClick={handleDeleteConfirm} className="bg-red-500 cursor-pointer">
+                        <Button variant='destructive' onClick={handleDeleteConfirm} className="cursor-pointer">
                             Confirm Delete
                         </Button>
                     </DialogFooter>
