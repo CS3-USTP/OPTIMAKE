@@ -36,6 +36,7 @@
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "jotai": "^2.12.4",
     "jotai-utils": "^0.0.0",
     "lucide-react": "^0.509.0",

@@ -1,5 +1,5 @@
 
-import UniversityComposition from "@/components/university-composition";
+import Composition from "@/app/(sidebar)/(composition)/composition";
 
 const data = [
 	{
@@ -8,7 +8,7 @@ const data = [
 		description: "Focuses on IT and computing courses and research.",
 		departments: 5,
 		courses: 20,
-		sections: 10,
+		section: 10,
 		faculties: 3,
 	},
 	{
@@ -17,7 +17,7 @@ const data = [
 		description: "Offers engineering programs and technical training.",
 		departments: 8,
 		courses: 30,
-		sections: 15,
+		section: 15,
 		faculties: 5,
 	},
 	{
@@ -26,7 +26,7 @@ const data = [
 		description: "Specializes in business, management, and finance studies.",
 		departments: 4,
 		courses: 15,
-		sections: 8,
+		section: 8,
 		faculties: 2,
 	},
 	{
@@ -35,7 +35,7 @@ const data = [
 		description: "Dedicated to arts, literature, and cultural studies.",
 		departments: 6,
 		courses: 25,
-		sections: 12,
+		section: 12,
 		faculties: 4,
 	},
 	{
@@ -44,7 +44,7 @@ const data = [
 		description: "Focuses on natural sciences and research.",
 		departments: 7,
 		courses: 18,
-		sections: 9,
+		section: 9,
 		faculties: 3,
 	},
 	{
@@ -53,24 +53,29 @@ const data = [
 		description: "Provides medical education and healthcare training.",
 		departments: 10,
 		courses: 40,
-		sections: 20,
+		section: 20,
 		faculties: 6,
 	},
 ];
 
 const header = [
 	{ key: "name", label: "Name" },
+	{ key: "section", label: "Section" },
 ];
 
 export default function Page() {
 
 	return (
-		<UniversityComposition
-			title="Department"
-			caption="Select a department to manage its courses, sections, and faculties."
-			header={header}
-			data={data}
-			placeholder="e.g., Department of Computer Science"
+		<Composition
+			compositionType="Department"
+			compositionCaption="Select a department to manage its courses, section, and faculties."
+			tableHeader={header}
+			tableData={data}
+			inputPlaceholder={{
+				type: "Department",
+				name: "e.g., Computer Science Department",
+				section: 0,
+			}}
 		/>
 	);
 }

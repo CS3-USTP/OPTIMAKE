@@ -1,5 +1,5 @@
 
-import UniversityComposition from "@/components/university-composition";
+import Composition from "@/app/(sidebar)/(composition)/composition";
 
 const data = [
     {
@@ -75,12 +75,15 @@ export default function Page() {
 
 
     return (
-        <UniversityComposition
-            title="Facility"
-            caption="Define facility types for room assignment."
-            header={header}
-            data={data}
-            placeholder="e.g., Computer Laboratory"
+        <Composition
+            compositionType="Facility"
+            compositionCaption="Define facility types for room assignment."
+            tableHeader={header}
+            tableData={data}
+            inputPlaceholder={{
+                type: "Facility",
+                name: "e.g., Computer Lab",
+            }}
         />
     );
 }

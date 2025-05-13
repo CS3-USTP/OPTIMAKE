@@ -1,5 +1,5 @@
 
-import UniversityComposition from "@/components/university-composition";
+import Composition from "@/app/(sidebar)/(composition)/composition";
 
 
 const data = [
@@ -62,12 +62,15 @@ const header = [
 export default function Page() {
 
     return (
-        <UniversityComposition
-            title="Building"
-            caption="Select a building to manage its rooms."
-            header={header}
-            data={data}
-            placeholder="e.g., Information Technology Building"
+        <Composition
+            compositionType="Building"
+            compositionCaption="Select a building to manage its rooms."
+            tableHeader={header}
+            tableData={data}
+            inputPlaceholder={{
+                type: "Building",
+                name: "e.g., Empire State Building",
+            }}
         />
     );
 }

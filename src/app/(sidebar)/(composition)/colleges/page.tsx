@@ -1,16 +1,21 @@
 
-import UniversityComposition from "@/components/university-composition";
+import Composition from "@/app/(sidebar)/(composition)/composition";
 
 export default function Page() {
 
 
 	return (
-		<UniversityComposition
-			title="College"
-			caption="Select a college to manage its departments."
-			header={[]}
-			data={[]}
-			placeholder="e.g., College of Science and Mathematics"
+		<Composition
+			compositionType="College"
+			compositionCaption="Select a college to manage its departments."
+			tableHeader={[]}
+			tableData={[]}
+			inputPlaceholder={
+				{
+					type: "College",
+					name: "e.g., College of Engineering",
+				}
+			}
 		/>
 	);
 }

@@ -27,7 +27,7 @@ export default function TabbedLayout({ children, tabs }: TabbedLayoutProps) {
         <div className="flex flex-col gap-6">
             <div className="border-b flex gap-2">
                 {tabs.map(({ label, path, icon: Icon }) => {
-                    const isActive = pathname === path;
+                    const isActive = pathname.startsWith(path);
                     return (
                         <Button
                             key={path}
