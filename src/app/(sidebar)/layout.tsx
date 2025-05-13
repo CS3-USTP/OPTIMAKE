@@ -22,9 +22,9 @@ export default function layout({ children }: Readonly<{ children: React.ReactNod
     >
       <AppSidebar variant="inset" />
       <SidebarInset>
-        <SiteHeader />
+        {/* <SiteHeader /> */}
         <div className="p-10">
-            <>{children}</>
+          <>{children}</>
         </div>
       </SidebarInset>
     </SidebarProvider>

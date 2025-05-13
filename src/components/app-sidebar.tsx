@@ -102,18 +102,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
 		<Sidebar collapsible="offcanvas" {...props}>
 
-			<SidebarHeader>
+			{/* <SidebarHeader>
 				<WorkspaceSwitcher workspaces={data.workspace} />
-			</SidebarHeader>
+			</SidebarHeader> */}
 
 			<SidebarContent>
-				<NavGroup title="Application" items={data.application} />
+				{/* <NavGroup title="Application" items={data.application} /> */}
 				<NavGroup title="University Composition" items={data.composition} />
 				<NavGroup title="Schedule Actions" items={data.actions} />
 			</SidebarContent>
-			<SidebarFooter>
+			{/* <SidebarFooter>
 				<NavUser user={data.user} />
-			</SidebarFooter>
+			</SidebarFooter> */}
 		</Sidebar>
 	)
 }
