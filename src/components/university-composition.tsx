@@ -121,7 +121,10 @@ function Hydrator({
 function TableAction() {
     const title = useAtomValue(titleAtom);
     const caption = useAtomValue(captionAtom);
+    const setSelect = useSetAtom(selectAtom);
     const setSearch = useSetAtom(searchAtom);
+    const setInputDialog = useSetAtom(inputDialogAtom);
+
 
     return (
         <div className="flex justify-between items-center mb-4">
@@ -130,13 +133,21 @@ function TableAction() {
             </p>
             <div className="flex items-center gap-2">
                 <div className="flex items-center gap-2">
-                    <div className="relative w-72">
+                    {/* <div className="relative w-72">
                         <SearchIcon size={16} className="absolute left-2.5 top-2.5 text-gray-500" />
                         <Input
                             placeholder={`Search ${title.toLowerCase()}...`}
                             onChange={(e) => setSearch(e.target.value)}
                             className="pl-8" />
-                    </div>
+                    </div> */}
+                    <Button variant="outline" className="cursor-pointer" onClick={() => {
+                        // Open the input dialog for creating a new item
+                        setSelect(null); // Clear any selected item
+                        setInputDialog(true);
+                    }}>
+                        <IconTablePlus size={16} />
+                        New {title}
+                    </Button>
                 </div>
                 <ActionDialog />
             </div>
@@ -280,12 +291,6 @@ export function ActionDialog() {
     return (
         <>
             <Dialog open={dialog} onOpenChange={handleOpenChange}>
-                <DialogTrigger asChild>
-                    <Button variant="outline" className="cursor-pointer">
-                        <IconTablePlus size={16} />
-                        New {title}
-                    </Button>
-                </DialogTrigger>
                 <DialogContent className="p-7">
                     <DialogHeader>
                         {isEditMode ? (
@@ -346,17 +351,16 @@ export function ActionDialog() {
             <Dialog open={deleteDialog} onOpenChange={setDeleteDialog}>
                 <DialogContent className="p-6 max-w-sm">
                     <DialogHeader>
-                        <DialogTitle>Are you sure?</DialogTitle>
+                        <DialogTitle>Remove {title}?</DialogTitle>
                         <DialogDescription>
-                            This action cannot be undone. This will permanently delete this{' '}
-                            {title.toLowerCase()}.
+                            This will permanently delete <span className="font-bold italic">{select?.name}</span>
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDeleteDialog(false)}>
+                        <Button variant="outline" onClick={() => setDeleteDialog(false)} className="cursor-pointer">
                             Cancel
                         </Button>
-                        <Button variant="destructive" onClick={handleDeleteConfirm}>
+                        <Button variant="destructive" onClick={handleDeleteConfirm} className="bg-red-500 cursor-pointer">
                             Confirm Delete
                         </Button>
                     </DialogFooter>
