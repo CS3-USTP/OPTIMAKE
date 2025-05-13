@@ -44,11 +44,15 @@ const captionAtom = atom<string>('');
 const searchAtom = atom<string>('');
 
 /* ------------------------------ dynamic table ----------------------------- */
-type TableDataType = Record<string, string | number | null | undefined>;
+type TableDataType = {
+    id: string; // required
+    [key: string]: string | number | null | undefined; // any
+}
 type TableHeaderType = {
     key: string;
     label: string;
 };
+
 const headerAtom = atom<TableHeaderType[]>([]);
 const dataAtom = atom<TableDataType[]>([]);
 
