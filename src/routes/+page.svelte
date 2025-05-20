@@ -14,7 +14,13 @@
 	import Users from "@lucide/svelte/icons/users";
 	import GitPullRequestArrow from "@lucide/svelte/icons/git-pull-request-arrow";
 	import ChevronsUpDown from "@lucide/svelte/icons/chevrons-up-down";
+	import BookText from "@lucide/svelte/icons/book-text";
 	import Leaf from "@lucide/svelte/icons/leaf";
+	import { slide } from "svelte/transition";
+
+	let drop_composition = $state(true);
+	let drop_resource = $state(true);
+	let drop_operation = $state(true);
 </script>
 
 <Sidebar.Provider>
@@ -46,8 +52,8 @@
 			<Sidebar.Group>
 				<Sidebar.Menu>
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton>
-							<LayoutPanelLeft />
+						<Sidebar.MenuButton class="cursor-pointer">
+							<BookText />
 							Documentation
 						</Sidebar.MenuButton>
 					</Sidebar.MenuItem>
@@ -61,27 +67,23 @@
 					<!-- dashboard -->
 					<Sidebar.Menu>
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton>
+							<Sidebar.MenuButton class="cursor-pointer">
 								<LayoutPanelLeft />
 								Dashboard
 							</Sidebar.MenuButton>
 						</Sidebar.MenuItem>
-					</Sidebar.Menu>
 
-					<!-- notifications -->
-					<Sidebar.Menu>
+						<!-- notifications -->
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton>
+							<Sidebar.MenuButton class="cursor-pointer">
 								<Bell />
 								Notifications
 							</Sidebar.MenuButton>
 						</Sidebar.MenuItem>
-					</Sidebar.Menu>
 
-					<!-- settings -->
-					<Sidebar.Menu>
+						<!-- settings -->
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton>
+							<Sidebar.MenuButton class="cursor-pointer">
 								<Settings_2 />
 								Settings
 							</Sidebar.MenuButton>
@@ -98,61 +100,78 @@
 						<!-- composition collapsible -->
 
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton>
+							<Sidebar.MenuButton
+								class="cursor-pointer"
+								onclick={() => (drop_composition = !drop_composition)}>
 								<CircleSlash />
 								Composition
-								<ChevronRight class="ml-auto" />
+								<ChevronRight
+									class="ml-auto transition-transform duration-200 {drop_composition ? 'rotate-90' : ''}" />
 							</Sidebar.MenuButton>
-							<Sidebar.MenuSub>
-								<Sidebar.MenuSubItem>
-									<Sidebar.MenuSubButton>
-										<GraduationCap />
-										Divisions
-									</Sidebar.MenuSubButton>
-									<Sidebar.MenuSubButton>
-										<University />
-										Facilities
-									</Sidebar.MenuSubButton>
-								</Sidebar.MenuSubItem>
-							</Sidebar.MenuSub>
+							{#if drop_composition}
+								<div transition:slide={{ duration: 100 }}>
+									<Sidebar.MenuSub>
+										<Sidebar.MenuSubItem>
+											<Sidebar.MenuSubButton class="cursor-pointer">
+												<GraduationCap />
+												Divisions
+											</Sidebar.MenuSubButton>
+											<Sidebar.MenuSubButton class="mt-1 cursor-pointer">
+												<University />
+												Facilities
+											</Sidebar.MenuSubButton>
+										</Sidebar.MenuSubItem>
+									</Sidebar.MenuSub>
+								</div>
+							{/if}
 						</Sidebar.MenuItem>
 
 						<!-- resource composition -->
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton>
+							<Sidebar.MenuButton class="cursor-pointer" onclick={() => (drop_resource = !drop_resource)}>
 								<CircleDot />
-								Composition
-								<ChevronRight class="ml-auto" />
+								Resource
+								<ChevronRight
+									class="ml-auto transition-transform duration-200 {drop_resource ? 'rotate-90' : ''}" />
 							</Sidebar.MenuButton>
-							<Sidebar.MenuSub>
-								<Sidebar.MenuSubItem>
-									<Sidebar.MenuSubButton>
-										<BookMarked />
-										Programs
-									</Sidebar.MenuSubButton>
-								</Sidebar.MenuSubItem>
-							</Sidebar.MenuSub>
+							{#if drop_resource}
+								<div transition:slide={{ duration: 100 }}>
+									<Sidebar.MenuSub>
+										<Sidebar.MenuSubItem>
+											<Sidebar.MenuSubButton class="cursor-pointer">
+												<BookMarked />
+												Programs
+											</Sidebar.MenuSubButton>
+										</Sidebar.MenuSubItem>
+									</Sidebar.MenuSub>
+								</div>
+							{/if}
 						</Sidebar.MenuItem>
 
 						<!-- operation collapsible -->
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton>
+							<Sidebar.MenuButton class="cursor-pointer" onclick={() => (drop_operation = !drop_operation)}>
 								<CircleDashed />
 								Operation
-								<ChevronRight class="ml-auto" />
+								<ChevronRight
+									class="ml-auto transition-transform duration-200 {drop_operation ? 'rotate-90' : ''}" />
 							</Sidebar.MenuButton>
-							<Sidebar.MenuSub>
-								<Sidebar.MenuSubItem>
-									<Sidebar.MenuSubButton>
-										<Users />
-										Faculties
-									</Sidebar.MenuSubButton>
-									<Sidebar.MenuSubButton>
-										<GitPullRequestArrow />
-										Constraints
-									</Sidebar.MenuSubButton>
-								</Sidebar.MenuSubItem>
-							</Sidebar.MenuSub>
+							{#if drop_operation}
+								<div transition:slide={{ duration: 100 }}>
+									<Sidebar.MenuSub>
+										<Sidebar.MenuSubItem>
+											<Sidebar.MenuSubButton class="cursor-pointer">
+												<Users />
+												Faculties
+											</Sidebar.MenuSubButton>
+											<Sidebar.MenuSubButton class="mt-1 cursor-pointer">
+												<GitPullRequestArrow />
+												Constraints
+											</Sidebar.MenuSubButton>
+										</Sidebar.MenuSubItem>
+									</Sidebar.MenuSub>
+								</div>
+							{/if}
 						</Sidebar.MenuItem>
 
 						<!-- generate schedule -->
