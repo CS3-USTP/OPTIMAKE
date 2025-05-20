@@ -6,7 +6,8 @@
 
 > **Optimake** is a powerful web-based platform that leverages **Constraint Programming** to solve complex university course scheduling challenges efficiently.
 
-![image](https://github.com/user-attachments/assets/00977a89-3a06-4737-b728-d70dccb11209)
+![image](https://github.com/user-attachments/assets/a444040d-74ac-4aac-bf19-535bae4dad24)
+
 
 ---
 
