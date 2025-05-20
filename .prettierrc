@@ -1,9 +1,10 @@
 {
-	"tabWidth": 4,
+	"tabWidth": 2,
 	"useTabs": true,
 	"singleQuote": false,
-	"printWidth": 120,
+	"printWidth": 100,
 	"bracketSameLine": true,
+	"proseWrap": "preserve",
 	"plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
 	"overrides": [
 		{
