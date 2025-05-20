@@ -2,9 +2,12 @@
 
 ## 📊 University Course Scheduling Optimization System
 
+![Version](https://img.shields.io/badge/status-active-success.svg)
+
 > **Optimake** is a powerful web-based platform that leverages **Constraint Programming** to solve complex university course scheduling challenges efficiently.
 
-![Version](https://img.shields.io/badge/status-active-success.svg)
+![image](https://github.com/user-attachments/assets/a444040d-74ac-4aac-bf19-535bae4dad24)
+
 
 ---
 
