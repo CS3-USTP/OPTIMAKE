@@ -8,7 +8,6 @@
 
 ![image](https://github.com/user-attachments/assets/a444040d-74ac-4aac-bf19-535bae4dad24)
 
-
 ---
 
 ## ✨ Features
@@ -19,9 +18,7 @@
 - 📱 **Responsive Design** - Works seamlessly on desktop and mobile
 - 🔒 **Secure Authentication** - Protected access to scheduling resources
 
----
-
-## 🛠️ Installation & Setup
+## 🛠️ Setup
 
 ### Prerequisites
 
@@ -29,84 +26,50 @@
 - Node.js v23+
 - pnpm package manager
 
-### Web Application Setup
+### Installation
 
 ```bash
-# Install pnpm globally
+# Install pnpm
 npm install -g pnpm
 
 # Install dependencies
 pnpm install
-```
 
-### Optimization Engine Setup
-
-```bash
-# Install required system packages
+# Setup optimization engine
 sudo apt update
 sudo apt install -y build-essential cmake lsb-release
-
-# Set up and build the engine
 pnpm run engine-setup-ubuntu24.04
 pnpm run engine-build
 pnpm run engine-compile
 ```
 
-> ⚠️ **Note**: The optimization engine is linked to a seperate repository.
-
----
-
-## 🚀 Running the Application
+## 🚀 Usage
 
 ```bash
-# Development mode
+# Development
 pnpm run dev
 
-# Production build
+# Production
 pnpm run build
 pnpm run start
 ```
 
----
+## 🔌 Architecture
 
-## 🏗️ Architecture
-
-- **Frontend**: Next.js React framework
-- **Backend**: Node.js with Express
-- **Scheduling Engine**: C++ with Google OR-Tools CP-SAT solver
-- **Authentication**: Firebase Authentication
-- **Database**: Firestore
-- **Deployment**: Cloud Run with Docker containerization
-
----
+- **Frontend**: Sveltekit with TailwindCSS - Provides responsive UI and component-based development
+- **Backend**: Node.js - Handles API requests and business logic
+- **Database**: Firestore - Stores scheduling data, constraints, and user preferences
+- **Authentication**: Firebase - Manages user accounts and access control
+- **Optimization**: Google OR-Tools CP-SAT - Powers the constraint programming solver
+- **Deployment**: Docker & Cloud Run - Enables containerization and scalable cloud hosting
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit:
-
-- 🐛 Bug reports
-- ✅ Feature requests
-- 📝 Documentation improvements
-
-Submit issues through our issue tracker or contact the development team.
-
----
-
-## 🔧 Tech Stack
-
-- **Frontend**: Next.js, React, TailwindCSS
-- **Backend**: Node.js, Express
-- **Database**: Firestore
-- **Authentication**: Firebase Authentication
-- **Optimization**: Google OR-Tools CP-SAT
-- **Deployment**: Docker, Cloud Run
-- **Build Tools**: CMake, pnpm
-
----
+Bug reports, feature requests, and documentation improvements are welcome via our issue tracker.
 
 ## 📞 Support
 
-For support or inquiries, please open an issue or contact the development team.
+For support, open an issue or contact the development team.
 
 ---
 
