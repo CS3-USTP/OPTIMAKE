@@ -67,6 +67,23 @@ pnpm run start
 
 Bug reports, feature requests, and documentation improvements are welcome via our issue tracker.
 
+### 📦 Conventional Commit Types
+
+| Type       | Meaning                                                                 | Example Commit Message                            |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------|
+| `feat`     | Adds a new feature                                                      | `feat(scheduler): add constraint for max hours`   |
+| `fix`      | Fixes a bug                                                             | `fix(auth): correct token expiration handling`    |
+| `docs`     | Documentation only changes                                              | `docs: update README with install instructions`   |
+| `style`    | Code style changes (formatting, no code logic change)                  | `style: format with Prettier`                     |
+| `refactor` | Code changes that neither fix a bug nor add a feature                  | `refactor: simplify loop logic`                   |
+| `perf`     | Performance improvements                                                | `perf(solver): optimize backtracking algorithm`   |
+| `test`     | Adds or modifies tests                                                  | `test: add tests for room conflict checker`       |
+| `chore`    | Routine tasks or maintenance (no production code change)               | `chore: update dependencies`                      |
+| `build`    | Changes that affect the build system or external dependencies          | `build: configure Docker for deployment`          |
+| `ci`       | CI/CD pipeline changes                                                  | `ci: add GitHub Actions for test workflow`        |
+| `revert`   | Reverts a previous commit                                               | `revert: feat(auth): add login with Google`       |
+
+
 ## 📞 Support
 
 For support, open an issue or contact the development team.
