@@ -1,6 +1,5 @@
 <script lang="ts">
-	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-	import * as Avatar from "$lib/components/ui/avatar/index.js";
+	// icons
 	import CircleSlash from "@lucide/svelte/icons/circle-slash";
 	import CircleDot from "@lucide/svelte/icons/circle-dot";
 	import ChevronRight from "@lucide/svelte/icons/chevron-right";
@@ -13,10 +12,15 @@
 	import CircleDashed from "@lucide/svelte/icons/circle-dashed";
 	import Users from "@lucide/svelte/icons/users";
 	import GitPullRequestArrow from "@lucide/svelte/icons/git-pull-request-arrow";
-	import ChevronsUpDown from "@lucide/svelte/icons/chevrons-up-down";
 	import BookText from "@lucide/svelte/icons/book-text";
 	import Leaf from "@lucide/svelte/icons/leaf";
+	// transitions
 	import { slide } from "svelte/transition";
+	// shadcn/ui
+	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+	// custom components
+	import NavWorkspace from "$lib/components/nav-workspace.svelte";
+	import NavUser from "$lib/components/nav-user.svelte";
 
 	let drop_composition = $state(true);
 	let drop_resource = $state(true);
@@ -27,23 +31,19 @@
 	<Sidebar.Root>
 		<!-- header -->
 		<Sidebar.Header>
-			<Sidebar.Menu>
-				<Sidebar.MenuItem>
-					<Sidebar.MenuButton
-						size="lg"
-						class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-						<div
-							class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-							<Leaf class="size-4" />
-						</div>
-						<div class="grid flex-1 text-left text-sm leading-tight">
-							<span class="truncate font-semibold"> USTP 2025 </span>
-							<span class="truncate text-xs"> Shared </span>
-						</div>
-						<ChevronsUpDown class="ml-auto" />
-					</Sidebar.MenuButton>
-				</Sidebar.MenuItem>
-			</Sidebar.Menu>
+			<NavWorkspace
+				workspaces={[
+					{
+						name: "USTP 2024",
+						logo: Leaf,
+						plan: "Shared",
+					},
+					{
+						name: "BSCS 2025",
+						logo: Leaf,
+						plan: "Local",
+					},
+				]} />
 		</Sidebar.Header>
 
 		<!-- content -->
@@ -52,7 +52,7 @@
 			<Sidebar.Group>
 				<Sidebar.Menu>
 					<Sidebar.MenuItem>
-						<Sidebar.MenuButton class="cursor-pointer">
+						<Sidebar.MenuButton class="cursor-pointer select-none">
 							<BookText />
 							Documentation
 						</Sidebar.MenuButton>
@@ -62,12 +62,12 @@
 
 			<!-- workspace -->
 			<Sidebar.Group class="-mt-4">
-				<Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+				<Sidebar.GroupLabel class="cursor-default select-none">Workspace</Sidebar.GroupLabel>
 				<Sidebar.GroupContent>
 					<!-- dashboard -->
 					<Sidebar.Menu>
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton class="cursor-pointer">
+							<Sidebar.MenuButton class="cursor-pointer select-none">
 								<LayoutPanelLeft />
 								Dashboard
 							</Sidebar.MenuButton>
@@ -75,7 +75,7 @@
 
 						<!-- notifications -->
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton class="cursor-pointer">
+							<Sidebar.MenuButton class="cursor-pointer select-none">
 								<Bell />
 								Notifications
 							</Sidebar.MenuButton>
@@ -83,7 +83,7 @@
 
 						<!-- settings -->
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton class="cursor-pointer">
+							<Sidebar.MenuButton class="cursor-pointer select-none">
 								<Settings_2 />
 								Settings
 							</Sidebar.MenuButton>
@@ -94,14 +94,14 @@
 
 			<!-- scheduling -->
 			<Sidebar.Group class="-mt-4">
-				<Sidebar.GroupLabel>Scheduling</Sidebar.GroupLabel>
+				<Sidebar.GroupLabel class="cursor-default select-none">Scheduling</Sidebar.GroupLabel>
 				<Sidebar.GroupContent>
 					<Sidebar.Menu>
 						<!-- composition collapsible -->
 
 						<Sidebar.MenuItem>
 							<Sidebar.MenuButton
-								class="cursor-pointer"
+								class="cursor-pointer select-none"
 								onclick={() => (drop_composition = !drop_composition)}>
 								<CircleSlash />
 								Composition
@@ -112,11 +112,11 @@
 								<div transition:slide={{ duration: 100 }}>
 									<Sidebar.MenuSub>
 										<Sidebar.MenuSubItem>
-											<Sidebar.MenuSubButton class="cursor-pointer">
+											<Sidebar.MenuSubButton class="cursor-pointer select-none">
 												<GraduationCap />
 												Divisions
 											</Sidebar.MenuSubButton>
-											<Sidebar.MenuSubButton class="mt-1 cursor-pointer">
+											<Sidebar.MenuSubButton class="mt-1 cursor-pointer select-none">
 												<University />
 												Facilities
 											</Sidebar.MenuSubButton>
@@ -128,7 +128,9 @@
 
 						<!-- resource composition -->
 						<Sidebar.MenuItem>
-							<Sidebar.MenuButton class="cursor-pointer" onclick={() => (drop_resource = !drop_resource)}>
+							<Sidebar.MenuButton
+								class="cursor-pointer select-none"
+								onclick={() => (drop_resource = !drop_resource)}>
 								<CircleDot />
 								Resource
 								<ChevronRight
@@ -138,7 +140,7 @@
 								<div transition:slide={{ duration: 100 }}>
 									<Sidebar.MenuSub>
 										<Sidebar.MenuSubItem>
-											<Sidebar.MenuSubButton class="cursor-pointer">
+											<Sidebar.MenuSubButton class="cursor-pointer select-none">
 												<BookMarked />
 												Programs
 											</Sidebar.MenuSubButton>
@@ -149,8 +151,10 @@
 						</Sidebar.MenuItem>
 
 						<!-- operation collapsible -->
-						<Sidebar.MenuItem>
-							<Sidebar.MenuButton class="cursor-pointer" onclick={() => (drop_operation = !drop_operation)}>
+						<Sidebar.MenuItem class="opacity-50">
+							<Sidebar.MenuButton
+								class="cursor-not-allowed select-none"
+								onclick={() => (drop_operation = !drop_operation)}>
 								<CircleDashed />
 								Operation
 								<ChevronRight
@@ -160,11 +164,11 @@
 								<div transition:slide={{ duration: 100 }}>
 									<Sidebar.MenuSub>
 										<Sidebar.MenuSubItem>
-											<Sidebar.MenuSubButton class="cursor-pointer">
+											<Sidebar.MenuSubButton class="cursor-not-allowed select-none">
 												<Users />
 												Faculties
 											</Sidebar.MenuSubButton>
-											<Sidebar.MenuSubButton class="mt-1 cursor-pointer">
+											<Sidebar.MenuSubButton class="mt-1 cursor-not-allowed select-none">
 												<GitPullRequestArrow />
 												Constraints
 											</Sidebar.MenuSubButton>
@@ -175,8 +179,8 @@
 						</Sidebar.MenuItem>
 
 						<!-- generate schedule -->
-						<Sidebar.MenuItem>
-							<Sidebar.MenuButton>
+						<Sidebar.MenuItem class="opacity-50">
+							<Sidebar.MenuButton class="cursor-not-allowed select-none">
 								<CircleDashed />
 								Generation
 							</Sidebar.MenuButton>
@@ -190,23 +194,12 @@
 
 		<!-- footer -->
 		<Sidebar.Footer>
-			<Sidebar.Menu>
-				<Sidebar.MenuItem>
-					<Sidebar.MenuButton
-						size="lg"
-						class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-						<Avatar.Root class="size-8 rounded-lg">
-							<Avatar.Image src={""} alt={""} />
-							<Avatar.Fallback class="rounded-lg">MK</Avatar.Fallback>
-						</Avatar.Root>
-						<div class="grid flex-1 text-left text-sm leading-tight">
-							<span class="truncate font-medium">{"mihkuno"}</span>
-							<span class="truncate text-xs">{"caindayjoeninyo@gmail.com"}</span>
-						</div>
-						<ChevronsUpDown class="ml-auto size-4" />
-					</Sidebar.MenuButton>
-				</Sidebar.MenuItem>
-			</Sidebar.Menu>
+			<NavUser
+				user={{
+					name: "mihkuno",
+					email: "caindayjoeninyo@gmail.com",
+					avatar: "/avatar.png",
+				}} />
 		</Sidebar.Footer>
 
 		<Sidebar.Rail />
